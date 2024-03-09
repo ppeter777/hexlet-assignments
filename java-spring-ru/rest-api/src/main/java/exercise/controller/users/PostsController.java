@@ -21,18 +21,20 @@ import exercise.Data;
 @RestController
 @RequestMapping("/api")
 public class PostsController {
-    @GetMapping("/users/{id}/posts")
-    public List<Post> show(@PathVariable String id) {
-        return Data.getPosts().stream()
-                .filter(p -> p.getUserId() == Integer.getInteger(id))
-                .toList();
+    private List<Post> posts = Data.getPosts();
+
+    @GetMapping("/users/{userId}/posts")
+    public List<Post> show(@PathVariable Integer userId) {
+        return posts.stream()
+                .filter(p -> p.getUserId() == userId).toList();
     }
 
-    @PostMapping("/users/{id}/posts")
-    public ResponseEntity<Post> create(@RequestBody Post post, @PathVariable String userId) {
-        post.setUserId(Integer.parseInt(userId));
-        return ResponseEntity.status(201)
-                .body(post);
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/users/{userId}/posts")
+    public Post create(@PathVariable Integer userId, @RequestBody Post post) {
+        post.setUserId(userId);
+        posts.add(post);
+        return post;
     }
 }
 
