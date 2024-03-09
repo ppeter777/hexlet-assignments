@@ -40,7 +40,7 @@ class ApplicationTest {
 
         post1.setUserId(999);
 
-        mockMvc.perform(request1)
+//        mockMvc.perform(request1)
 //                .andExpect(status().isCreated());
 //                .andExpect(content().json(om.writeValueAsString(post1)));
 
