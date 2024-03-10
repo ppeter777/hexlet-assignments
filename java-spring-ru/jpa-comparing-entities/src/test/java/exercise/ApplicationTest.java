@@ -87,21 +87,21 @@ class ApplicationTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(om.writeValueAsString(product1));
 
-//        mockMvc.perform(request1)
-//                .andExpect(status().isCreated());
-//
-//        var product2 = new Product();
-//        product2.setTitle("orange");
-//        product2.setPrice(20);
-//
-//        var request2 = post("/products")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(om.writeValueAsString(product2));
-//
-//        mockMvc.perform(request2)
-//                .andExpect(status().isCreated());
-//
-//        assertThat(productRepository.findAll()).hasSize(3);
+        mockMvc.perform(request1)
+                .andExpect(status().isCreated());
+
+        var product2 = new Product();
+        product2.setTitle("orange");
+        product2.setPrice(20);
+
+        var request2 = post("/products")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(om.writeValueAsString(product2));
+
+        mockMvc.perform(request2)
+                .andExpect(status().isCreated());
+
+        assertThat(productRepository.findAll()).hasSize(3);
     }
 
     @Test
@@ -110,21 +110,21 @@ class ApplicationTest {
         product.setTitle("orange");
         product.setPrice(10);
 
-//        var request1 = post("/products")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(om.writeValueAsString(product));
-//
-//        mockMvc.perform(request1)
-//                .andExpect(status().isCreated());
-//
-//        var request2 = post("/products")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(om.writeValueAsString(product));
-//
-//        mockMvc.perform(request2)
-//                .andExpect(status().isConflict());
-//
-//        assertThat(productRepository.findAll()).hasSize(2);
+        var request1 = post("/products")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(om.writeValueAsString(product));
+
+        mockMvc.perform(request1)
+                .andExpect(status().isCreated());
+
+        var request2 = post("/products")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(om.writeValueAsString(product));
+
+        mockMvc.perform(request2)
+                .andExpect(status().isConflict());
+
+        assertThat(productRepository.findAll()).hasSize(2);
     }
 
     @Test

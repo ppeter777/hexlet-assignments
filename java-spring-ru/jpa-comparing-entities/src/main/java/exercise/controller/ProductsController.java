@@ -35,9 +35,10 @@ public class ProductsController {
     // BEGIN
     @PostMapping(path = "")
     @ResponseStatus(HttpStatus.CREATED)
-    public Product create(@RequestBody Product productData, @PathVariable long id) {
-        var product = productRepository.findOne(Example.of(productData))
-                .orElseThrow(() -> new ResourceAlreadyExistsException("Product with id " + id + " already exists"));
+    public Product create(@RequestBody Product productData) {
+        if (productRepository.findAll().contains(productData)) {
+            throw new ResourceAlreadyExistsException("Product " + productData.getTitle() + " already exists");
+        }
         return productRepository.save(productData);
     }
     // END
