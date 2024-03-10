@@ -51,15 +51,15 @@ class ApplicationTest {
                 .andExpect(status().isOk());
     }
 
-//    @Test
-//    public void testIndex() throws Exception {
-//        var result = mockMvc.perform(get("/people"))
-//                .andExpect(status().isOk())
-//                .andReturn();
-//
-//        var body = result.getResponse().getContentAsString();
-//        assertThatJson(body).isArray();
-//    }
+    @Test
+    public void testIndex() throws Exception {
+        var result = mockMvc.perform(get("/people"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        var body = result.getResponse().getContentAsString();
+        assertThatJson(body).isArray();
+    }
 
     @Test
     public void testShow() throws Exception {
@@ -68,30 +68,30 @@ class ApplicationTest {
                 .andExpect(content().json(om.writeValueAsString(testPerson)));
     }
 
-//    @Test
-//    public void testCreate() throws Exception {
-//        Map person = Map.of(
-//            "firstName", "test",
-//            "lastName", "user"
-//        );
-//
-//        var request = post("/people")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(om.writeValueAsString(person));
-//
-//        mockMvc.perform(request)
-//                .andExpect(status().isCreated())
-//                .andExpect(content().json(om.writeValueAsString(person)));
-//
-//        assertThat(personRepository.findAll()).hasSize(2);
-//    }
-//
-//    @Test
-//    public void testDelete() throws Exception {
-//
-//        mockMvc.perform(delete("/people/" + testPerson.getId()))
-//                .andExpect(status().isOk());
-//
-//        assertThat(personRepository.findAll()).isEmpty();
-//    }
+    @Test
+    public void testCreate() throws Exception {
+        Map person = Map.of(
+            "firstName", "test",
+            "lastName", "user"
+        );
+
+        var request = post("/people")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(om.writeValueAsString(person));
+
+        mockMvc.perform(request)
+                .andExpect(status().isCreated())
+                .andExpect(content().json(om.writeValueAsString(person)));
+
+        assertThat(personRepository.findAll()).hasSize(2);
+    }
+
+    @Test
+    public void testDelete() throws Exception {
+
+        mockMvc.perform(delete("/people/" + testPerson.getId()))
+                .andExpect(status().isOk());
+
+        assertThat(personRepository.findAll()).isEmpty();
+    }
 }
