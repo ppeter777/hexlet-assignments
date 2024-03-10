@@ -48,7 +48,7 @@ public class ProductsController {
 
     @PutMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Product create(@RequestBody Product data, @PathVariable Long id) {
+    public Product update(@RequestBody Product data, @PathVariable Long id) {
         var product = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product with id " + id + " not found"));
         product.setTitle(data.getTitle());
