@@ -44,8 +44,6 @@ public class TasksController {
     @PostMapping(path = "")
     @ResponseStatus(HttpStatus.CREATED)
     public Task create(@RequestBody Task task) {
-        task.setCreatedAt(LocalDate.now());
-        task.setUpdatedAt(LocalDate.now());
         return taskRepository.save(task);
     }
 
@@ -55,7 +53,6 @@ public class TasksController {
                 .orElseThrow(() -> new ResourceNotFoundException("Task with id " + id + " not found"));
         task.setTitle(taskData.getTitle());
         task.setDescription(taskData.getDescription());
-        task.setUpdatedAt(LocalDate.now());
         taskRepository.save(task);
         return task;
     }

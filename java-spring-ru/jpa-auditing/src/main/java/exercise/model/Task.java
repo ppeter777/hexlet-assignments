@@ -6,6 +6,9 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -14,15 +17,19 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
+@Table(name = "tasks")
+@EntityListeners(AuditingEntityListener.class)
 public class Task {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private long id;
     private String title;
     private String description;
-    @GeneratedValue
+
+    @CreatedDate
     private LocalDate createdAt;
-    @GeneratedValue
+
+    @LastModifiedDate
     private LocalDate updatedAt;
 }
 // END
