@@ -32,8 +32,8 @@ class ApplicationTest {
     @Test
     public void testWelcomePage() throws Exception {
         mockMvc.perform(get("/welcome"))
-                .andExpect(status().isOk());
-//                .andExpect(content().string(containsString(getDaytime().getName())));
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(getDaytime().getName())));
     }
 
     private Daytime getDaytime() {
