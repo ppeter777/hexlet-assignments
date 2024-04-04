@@ -47,17 +47,6 @@ public class PostsController {
         postDTO.setComments(commentsDTO);
         return postDTO;
     }
-    private PostDTO toPostDTO(List<Post> posts) {
-        var dto = new PostDTO();
-//        dto.setComments(posts);
-        return dto;
-    }
-    private CommentDTO toCommentDTO(Post post) {
-        var dto = new CommentDTO();
-        dto.setId(post.getId());
-        dto.setBody(post.getBody());
-        return dto;
-    }
 }
 
 // END
