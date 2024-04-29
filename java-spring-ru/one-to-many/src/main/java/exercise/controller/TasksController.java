@@ -32,6 +32,8 @@ public class TasksController {
     @Autowired
     private TaskRepository taskRepository;
 
+    @Autowired UserRepository userRepository;
+
     @Autowired
     private TaskMapper taskMapper;
 
@@ -67,7 +69,10 @@ public class TasksController {
     public TaskDTO update(@RequestBody @Valid TaskUpdateDTO taskData, @PathVariable long id) {
         var task = taskRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Task with id " + id + " not found"));
+        var user = userRepository.findById(taskData.getAssigneeId())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         taskMapper.update(taskData, task);
+        task.setAssignee(user);
         taskRepository.save(task);
         var taskDto = taskMapper.map(task);
         return taskDto;
