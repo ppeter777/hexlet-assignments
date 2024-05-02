@@ -1,7 +1,8 @@
 package exercise.mapper;
 
-import exercise.dto.*;
-import exercise.model.Author;
+import exercise.dto.BookDTO;
+import exercise.dto.BookUpdateDTO;
+import exercise.dto.BookCreateDTO;
 import exercise.model.Book;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

@@ -3,9 +3,7 @@ package exercise.service;
 import exercise.dto.*;
 import exercise.exception.ResourceNotFoundException;
 import exercise.mapper.AuthorMapper;
-import exercise.mapper.BookMapper;
 import exercise.repository.AuthorRepository;
-import exercise.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

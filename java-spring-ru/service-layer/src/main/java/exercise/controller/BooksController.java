@@ -2,12 +2,9 @@ package exercise.controller;
 
 import java.util.List;
 
-import exercise.dto.*;
-import exercise.exception.ResourceNotFoundException;
-import exercise.mapper.AuthorMapper;
-import exercise.mapper.BookMapper;
-import exercise.repository.AuthorRepository;
-import exercise.repository.BookRepository;
+import exercise.dto.BookDTO;
+import exercise.dto.BookCreateDTO;
+import exercise.dto.BookUpdateDTO;
 import exercise.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,7 +47,7 @@ public class BooksController {
 
     @PutMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public BookDTO update(@RequestBody BookUpdateDTO bookData, @PathVariable long id) {
+    public BookDTO update(@Valid @RequestBody BookUpdateDTO bookData, @PathVariable long id) {
         var book = bookService.update(bookData, id);
         return book;
     }
