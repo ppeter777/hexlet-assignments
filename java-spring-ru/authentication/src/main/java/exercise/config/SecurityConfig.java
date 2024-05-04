@@ -30,10 +30,10 @@ public class SecurityConfig {
     private JwtDecoder jwtDecoder;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    CustomUserDetailsService userService;
+//    @Autowired
+//    private CustomUserDetailsService userService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, HandlerMappingIntrospector introspector)
@@ -42,6 +42,11 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/login").permitAll()
+                        .requestMatchers("/api/pages/*").permitAll()
+                        .requestMatchers("/api/pages").permitAll()
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/index.html").permitAll()
+                        .requestMatchers("/assets/**").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer((rs) -> rs.jwt((jwt) -> jwt.decoder(jwtDecoder)))
@@ -53,14 +58,14 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
                 .build();
-        }
-
-    @Bean
-    public AuthenticationProvider daoAuthProvider(AuthenticationManagerBuilder auth) {
-        var provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userService);
-        provider.setPasswordEncoder(passwordEncoder);
-        return provider;
     }
+
+//    @Bean
+//    public AuthenticationProvider daoAuthProvider(AuthenticationManagerBuilder auth) {
+//        var provider = new DaoAuthenticationProvider();
+//        provider.setUserDetailsService(userService);
+//        provider.setPasswordEncoder(passwordEncoder);
+//        return provider;
+//    }
 }
 // END
