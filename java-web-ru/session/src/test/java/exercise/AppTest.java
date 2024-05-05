@@ -232,14 +232,14 @@ class AppTest {
         postRequest.setEntity(new UrlEncodedFormEntity(params));
         CloseableHttpResponse response = client.execute(postRequest);
 
-//        assertThat(response.getCode()).isEqualTo(200);
+        assertThat(response.getCode()).isEqualTo(200);
 
         HttpEntity entity = response.getEntity();
         String content = EntityUtils.toString(entity);
 
         // Проверяем, что пользователь аутентифицирован по наличию кнопки Выход и отсутствию кнопки Вход
-//        assertThat(content).contains("Выход");
-//        assertThat(content).doesNotContain("Вход");
+        assertThat(content).contains("Выход");
+        assertThat(content).doesNotContain("Вход");
     }
 
     @Test
@@ -272,12 +272,12 @@ class AppTest {
         postRequest.setEntity(new UrlEncodedFormEntity(params));
         CloseableHttpResponse response = client.execute(postRequest);
 
-//        assertThat(response.getCode()).isEqualTo(422);
+        assertThat(response.getCode()).isEqualTo(422);
 
         HttpEntity entity = response.getEntity();
         String content = EntityUtils.toString(entity);
 
-//        assertThat(content).contains("lavern.keeling@gmail.com");
+        assertThat(content).contains("lavern.keeling@gmail.com");
     }
 
     @Test
@@ -293,8 +293,8 @@ class AppTest {
         String content1 = EntityUtils.toString(entity1);
 
         // Проверяем, что после входа выводится flash-сообщение "Вы успешно вошли"
-//        assertThat(response1.getCode()).isEqualTo(200);
-//        assertThat(content1).contains("Вы успешно вошли");
+        assertThat(response1.getCode()).isEqualTo(200);
+        assertThat(content1).contains("Вы успешно вошли");
 
         HttpGet getRequest = new HttpGet(baseUrl);
         CloseableHttpResponse response2 = client.execute(getRequest);
@@ -303,7 +303,7 @@ class AppTest {
         String content2 = EntityUtils.toString(entity2);
 
         // Проверяем, что flash-сообщение выводится только один раз
-//        assertThat(content2).doesNotContain("Вы успешно вошли");
+        assertThat(content2).doesNotContain("Вы успешно вошли");
 
         HttpPost postRequest2 = new HttpPost(baseUrl + "/logout");
         CloseableHttpResponse response3 = client.execute(postRequest2);
@@ -311,8 +311,8 @@ class AppTest {
         String content3 = EntityUtils.toString(entity3);
 
         // Проверяем, что после выхода выводится flash-сообщение "Вы успешно вышли"
-//        assertThat(response3.getCode()).isEqualTo(200);
-//        assertThat(content3).contains("Вы успешно вышли");
+        assertThat(response3.getCode()).isEqualTo(200);
+        assertThat(content3).contains("Вы успешно вышли");
     }
 
     @AfterAll

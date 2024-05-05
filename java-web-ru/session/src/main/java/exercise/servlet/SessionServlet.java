@@ -55,25 +55,27 @@ public class SessionServlet extends HttpServlet {
                  throws IOException, ServletException {
 
         // BEGIN
-         // Получение сессии
-         HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
 
-         // Получаем пользователя по логину
-         Map<String, String> user = users.findById(session.getId());
-         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/login.jsp");
-         requestDispatcher.forward(request, response);
-         // Далее нужно проверить, зарегестрирован ли такой пользователь
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
 
-         // Установка атрибутов сессии
-         // Вход в систему сводится к записи данных пользователя в сессию
-         session.setAttribute("user", user);
-         // Механизм работы флеш-сообщений тоже основан на сессии
-         // Устанавливаем в сессию атрибут с текстом сообщения
-         // Далее мы сможем получить эти данные в шаблонах
-         session.setAttribute("flash", "Вы успешно вошли");
+        Map<String, String> userData = users.build(email);
 
-         // Выполняем редирект на главную страницу
-         response.sendRedirect("/");
+        Map<String, String> user = users.findByEmail(email);
+
+        if (user == null || !user.get("password").equals(password)) {
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/login.jsp");
+            request.setAttribute("user", userData);
+            session.setAttribute("flash", "Неверные логин или пароль");
+            response.setStatus(422);
+            requestDispatcher.forward(request, response);
+            return;
+        }
+
+        session.setAttribute("userId", user.get("id"));
+        session.setAttribute("flash", "Вы успешно вошли");
+        response.sendRedirect("/");
         // END
     }
 
@@ -82,9 +84,10 @@ public class SessionServlet extends HttpServlet {
                  throws IOException {
 
         // BEGIN
-         HttpSession session = request.getSession();
-         session.removeAttribute("userId");
-         response.sendRedirect("/");
+        HttpSession session = request.getSession();
+        session.removeAttribute("userId");
+        session.setAttribute("flash", "Вы успешно вышли");
+        response.sendRedirect("/");
         // END
     }
 }
