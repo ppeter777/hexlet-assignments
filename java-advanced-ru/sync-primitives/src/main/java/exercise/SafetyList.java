@@ -22,6 +22,5 @@ class SafetyList {
     public String get(int index) {
         return list.get(index);
     }
-
     // END
 }
