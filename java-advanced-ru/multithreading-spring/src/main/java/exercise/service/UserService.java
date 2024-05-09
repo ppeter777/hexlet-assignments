@@ -15,9 +15,6 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-//    @Autowired
-//    UserService userService;
-
     public Flux<User> findAll() {
         return userRepository.findAll();
     }
@@ -31,16 +28,13 @@ public class UserService {
         return userRepository.findById(userId);
     }
 
-    public Mono<User> delete(int userId) {
-        var user = userRepository.findById(userId);
-        userRepository.deleteById(userId);
-        return user;
+    public Mono<Void> delete(Integer userId) {
+        return userRepository.deleteById(userId);
     }
 
-    public Mono<User> update(User userData, int userId) {
-//        userService.update(userData, userId);
-//        userRepository.
-        return userRepository.findById(userId);
+    public Mono<User> update(int userId, User user) {
+        user.setId(userId);
+        return userRepository.save(user);
     }
         // END
 }
