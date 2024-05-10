@@ -12,8 +12,6 @@ compileJava {
     options.release = 20
 }
 
-application { mainClass.set("exercise.App") }
-
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

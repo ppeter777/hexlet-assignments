@@ -1,6 +1,5 @@
-FROM eclipse-temurin:20-jdk
 
-ARG JAR_FILE=build/libs/*.jar
+FROM eclipse-temurin:20-jdk
 
 ARG GRADLE_VERSION=8.2
 
@@ -16,18 +15,11 @@ RUN mv gradle-${GRADLE_VERSION} ${GRADLE_HOME}
 
 ENV PATH=$PATH:$GRADLE_HOME/bin
 
-# Устанавливаем рабочую директорию
-WORKDIR /project
 
-# Копируем директорию из основной файловой системы внутрь образа
-COPY ${JAR_FILE} docker.jar
+WORKDIR /app
 
-# Определяет действие, которое будет выполнено при старте контейнера (docker run)
-# Используется только в случае, если контейнер был запущен без указания команды
-# [команда, аргумент]
-CMD ["echo", "Hello Hexlet!"]
+COPY ./app .
 
-ENTRYPOINT ["java", "-jar", "docker.jar"]
+CMD ["gradle", "bootRun"]
 
-# Сообщаем, что контейнер использует 8000 порт
 EXPOSE 3000
